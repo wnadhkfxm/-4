@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>"paint" program</title>
+</head>
+
+<body>
+    <h1>Paint</h1>
+    <div>
+        <canvas id="gl-canvas" width="512" height="512">
+            Oops ... your browser doesn't support the HTML5 canvas element
+        </canvas>
+    </div>
+    <div>
+        <h2>모양 선택</h2>
+        <select id="primitive-types" size="1">
+            <option value="square">Squares</option>
+            <!--이곳에 추가적으로 여러 옵션들을 설정할 수 있음-->
+            <!-- <option value="triangle">Triangles</option>삼각형 옵션 -->
+            <!-- <option value="point">Points</option>점 옵션-->
+            <!--<option value="brush">Brush</option>브러시 옵션 -->
+        </select>
+        
+    </div>
+    <div>
+        <h2>색깔 선택</h2>
+        <button id="btn-red"         style="background-color: #e6261f; width: 4em; height: 2em;"></button>
+        <button id="btn-orange"      style="background-color: #eb7532; width: 4em; height: 2em;"></button>
+        <button id="btn-yellow"      style="background-color: #f7d038; width: 4em; height: 2em;"></button>
+        <button id="btn-light-green" style="background-color: #a3e048; width: 4em; height: 2em;"></button>
+        <button id="btn-sea-green"   style="background-color: #49da9a; width: 4em; height: 2em;"></button>
+        <button id="btn-light-blue"  style="background-color: #34bbe6; width: 4em; height: 2em;"></button>
+        <button id="btn-blue"        style="background-color: #4355db; width: 4em; height: 2em;"></button>
+        <button id="btn-magenta"     style="background-color: #d23be7; width: 4em; height: 2em;"></button>
+    </div>
+
+    <!-- scripts -->
+    <script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec4 vPosition;
+    attribute vec4 vColor;
+    
+          // 프래그먼트 쉐이더로 보낼 한정자 변경
+    varying vec4 fColor;
+    
+    void main() {
+        gl_Position.x = vPosition.x;
+        gl_Position.y = vPosition.y;
+        gl_Position.z = 0.0;
+        gl_Position.w = 1.0;
+    
+      fColor = vColor;
+    }
+    </script>
+    
+    <script id="fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+    
+    // 정점 쉐이더에서 나올 정점 색상
+    varying vec4 fColor;
+    
+    void main() {
+        gl_FragColor = fColor;
+    }
+    </script>
+    <!--소스들 출처 각각 webgl-utils, initshader, paint-->
+    <script type="text/javascript" src="webgl-utils.js"></script>
+    <script type="text/javascript" src="initShaders.js"></script>    
+    <script type="text/javascript" src="paint.js"></script>
+</body>
+</html>
